@@ -1,0 +1,32 @@
+{
+  "name": "node.ircd",
+  "version": "1.0.0",
+  "description": "IRC server",
+  "main": "nodeircd.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikecrdev/Node.IRCd.git"
+  },
+  "keywords": [
+    "irc",
+    "protocol",
+    "internet",
+    "tcp",
+    "communication",
+    "chat",
+    "medium",
+    "relay"
+  ],
+  "author": "Michael Rodriguez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikecrdev/Node.IRCd/issues"
+  },
+  "homepage": "https://github.com/mikecrdev/Node.IRCd#readme",
+  "dependencies": {
+    "winston": "^3.3.3"
+  }
+}
