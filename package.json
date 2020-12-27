@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/mikecrdev/Node.IRCd#readme",
   "dependencies": {
+    "commander": "^6.2.1",
+    "toml": "^3.0.0",
     "winston": "^3.3.3"
   }
 }

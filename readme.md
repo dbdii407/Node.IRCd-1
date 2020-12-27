@@ -4,15 +4,6 @@ Node.IRCd -- An IRCd written in Node.js
 This IRCd is open source but copyrighted under the terms of the ISC license;
 refer to the "license.txt" file for more information.
 
-Disclaimer
-----------
-
-Node.IRCd is an experimental project. As such, I would highly advise that you
-do not use this IRCd in production. There's no reason it shouldn't work, but I
-probably won't offer support in a production setting.
-
-Please keep this disclaimer in mind if you choose to file a bug report.
-
 Introduction
 ------------
 
