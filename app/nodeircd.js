@@ -14,6 +14,9 @@
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 const { program } = require('commander');
+const readline = require('readline');
+const fs = require('fs');
+
 const Configuration = require('./config');
 const NodeIRCd = require('./../lib/nodeircd');
 
@@ -35,9 +38,27 @@ class Application
 
     connectConfigEvents()
     {
-        this.#Config.on("clientListenerAdded", (ClientListener) =>
+        this.#Config.on('motdFile', (MOTDFile) =>
+        {
+            const readInterface = readline.createInterface({
+                input: fs.createReadStream(MOTDFile)
+            });
+
+            readInterface.on('line', (line) =>
+            {
+                this.#IRCd.Config.MOTDLines.push(line);
+            });
+        });
+
+        this.#Config.on('clientListenerAdded', (ClientListener) =>
         {
             this.#IRCd.NetworkManager.addListener(ClientListener.Hostname, ClientListener.Port);
+        });
+
+        this.#Config.on('serverName', (serverName) =>
+        {
+            // Server names cannot be modified on a configuration reload.
+            this.#IRCd.Config.ServerName = serverName;
         });
     }
 

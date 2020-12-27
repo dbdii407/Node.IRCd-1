@@ -1,0 +1,13 @@
+Welcome to Node.IRCd. The text you see here (the "Message of the Day", or MOTD
+for short) is read from a file named "motd.txt" in the "config" folder where if
+you are the server owner should have hopefully modified the main configuration
+file (`nodeircd.json`).
+
+An MOTD (Message of the Day) is optional. If you are the server owner and you
+do not want an MOTD, you may either:
+
+(a) remove this file
+(b) remove the `MOTDFile` entry in the main configuration file
+
+If you're seeing this on a production server, I'm sorry.
+--mikecrdev
