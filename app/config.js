@@ -12,15 +12,15 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-const EventEmitter = require("events");
+const events = require("events");
 const fs = require("fs");
 
-class Configuration extends EventEmitter {
-  #ConfigFile;
+class Configuration extends events.EventEmitter {
+  #configFile;
 
   constructor(ConfigFilePath) {
     super();
-    this.#ConfigFile = ConfigFilePath;
+    this.#configFile = ConfigFilePath;
   }
 
   parse() {

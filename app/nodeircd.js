@@ -21,40 +21,40 @@ const Configuration = require("./config");
 const NodeIRCd = require("./../lib/nodeircd");
 
 class Application {
-  #IRCd;
-  #Config;
+  #iRCd;
+  #config;
 
   constructor() {
     this.parseCommandLineOptions();
 
-    this.#Config = new Configuration("../nodeircd.json");
-    this.#IRCd = new NodeIRCd();
+    this.#config = new Configuration("../nodeircd.json");
+    this.#iRCd = new NodeIRCd();
 
     this.connectConfigEvents();
-    this.#Config.parse();
+    this.#config.parse();
   }
 
   connectConfigEvents() {
-    this.#Config.on("motdFile", (MOTDFile) => {
+    this.#config.on("motdFile", (MOTDFile) => {
       const readInterface = readline.createInterface({
         input: fs.createReadStream(MOTDFile),
       });
 
       readInterface.on("line", (line) => {
-        this.#IRCd.Config.MOTDLines.push(line);
+        this.#iRCd.Config.MOTDLines.push(line);
       });
     });
 
-    this.#Config.on("clientListenerAdded", (ClientListener) => {
-      this.#IRCd.NetworkManager.addListener(
+    this.#config.on("clientListenerAdded", (ClientListener) => {
+      this.#iRCd.NetworkManager.addListener(
         ClientListener.Hostname,
         ClientListener.Port
       );
     });
 
-    this.#Config.on("serverName", (serverName) => {
+    this.#config.on("serverName", (serverName) => {
       // Server names cannot be modified on a configuration reload.
-      this.#IRCd.Config.ServerName = serverName;
+      this.#iRCd.Config.ServerName = serverName;
     });
   }
 
