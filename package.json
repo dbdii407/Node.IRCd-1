@@ -28,7 +28,13 @@
   "homepage": "https://github.com/mikecrdev/Node.IRCd#readme",
   "dependencies": {
     "commander": "^6.2.1",
+    "prettier": "^2.2.1",
     "toml": "^3.0.0",
     "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^7.1.0"
   }
 }

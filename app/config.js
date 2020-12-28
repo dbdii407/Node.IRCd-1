@@ -12,25 +12,22 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-const EventEmitter = require('events');
-const fs = require('fs');
+const EventEmitter = require("events");
+const fs = require("fs");
 
-class Configuration extends EventEmitter
-{
-    #ConfigFile;
+class Configuration extends EventEmitter {
+  #ConfigFile;
 
-    constructor(ConfigFilePath)
-    {
-        super();
-        this.#ConfigFile = ConfigFilePath;
-    }
+  constructor(ConfigFilePath) {
+    super();
+    this.#ConfigFile = ConfigFilePath;
+  }
 
-    parse()
-    {
-        this.emit('serverName', 'node.ircd.test');
-        this.emit('motdFile', '../config/motd.txt');
-        this.emit('clientListenerAdded', {Hostname: "127.0.0.1", Port: 6667});
-    }
-};
+  parse() {
+    this.emit("serverName", "node.ircd.test");
+    this.emit("motdFile", "../config/motd.txt");
+    this.emit("clientListenerAdded", { Hostname: "127.0.0.1", Port: 6667 });
+  }
+}
 
-module.exports = Configuration
+module.exports = Configuration;

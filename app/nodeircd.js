@@ -13,65 +13,66 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-const { program } = require('commander');
-const readline = require('readline');
-const fs = require('fs');
+const { program } = require("commander");
+const readline = require("readline");
+const fs = require("fs");
 
-const Configuration = require('./config');
-const NodeIRCd = require('./../lib/nodeircd');
+const Configuration = require("./config");
+const NodeIRCd = require("./../lib/nodeircd");
 
-class Application
-{
-    #IRCd;
-    #Config;
+class Application {
+  #IRCd;
+  #Config;
 
-    constructor()
-    {
-        this.parseCommandLineOptions();
+  constructor() {
+    this.parseCommandLineOptions();
 
-        this.#Config = new Configuration("../nodeircd.json");
-        this.#IRCd = new NodeIRCd();
+    this.#Config = new Configuration("../nodeircd.json");
+    this.#IRCd = new NodeIRCd();
 
-        this.connectConfigEvents();
-        this.#Config.parse();
-    }
+    this.connectConfigEvents();
+    this.#Config.parse();
+  }
 
-    connectConfigEvents()
-    {
-        this.#Config.on('motdFile', (MOTDFile) =>
-        {
-            const readInterface = readline.createInterface({
-                input: fs.createReadStream(MOTDFile)
-            });
+  connectConfigEvents() {
+    this.#Config.on("motdFile", (MOTDFile) => {
+      const readInterface = readline.createInterface({
+        input: fs.createReadStream(MOTDFile),
+      });
 
-            readInterface.on('line', (line) =>
-            {
-                this.#IRCd.Config.MOTDLines.push(line);
-            });
-        });
+      readInterface.on("line", (line) => {
+        this.#IRCd.Config.MOTDLines.push(line);
+      });
+    });
 
-        this.#Config.on('clientListenerAdded', (ClientListener) =>
-        {
-            this.#IRCd.NetworkManager.addListener(ClientListener.Hostname, ClientListener.Port);
-        });
+    this.#Config.on("clientListenerAdded", (ClientListener) => {
+      this.#IRCd.NetworkManager.addListener(
+        ClientListener.Hostname,
+        ClientListener.Port
+      );
+    });
 
-        this.#Config.on('serverName', (serverName) =>
-        {
-            // Server names cannot be modified on a configuration reload.
-            this.#IRCd.Config.ServerName = serverName;
-        });
-    }
+    this.#Config.on("serverName", (serverName) => {
+      // Server names cannot be modified on a configuration reload.
+      this.#IRCd.Config.ServerName = serverName;
+    });
+  }
 
-    parseCommandLineOptions()
-    {
-        program.version('0.0.1');
+  parseCommandLineOptions() {
+    program.version("0.0.1");
 
-        program
-        .option('-c, --config_file <file>', 'specify configuration file (default is `nodeircd.json`)')
-        .option('-n, --nofork', 'do not fork into the background, dumps log output to stdout');
+    program
+      .option(
+        "-c, --config_file <file>",
+        "specify configuration file (default is `nodeircd.json`)"
+      )
+      .option(
+        "-n, --nofork",
+        "do not fork into the background, dumps log output to stdout"
+      );
 
-        program.parse(process.argv);
-    }
-};
+    program.parse(process.argv);
+  }
+}
 
 new Application();
